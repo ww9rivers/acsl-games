@@ -10,7 +10,7 @@ defineProps<{
     <h3>
       These are some simple games to help you with learning computer science basics
       -- based on the
-      <a target="_blank" href="https://acsl.org/">ACSL</a>
+      <a target="_blank" href="https://www.acsl.org/">ACSL</a>
       curriculum.
     </h3>
   </div>
