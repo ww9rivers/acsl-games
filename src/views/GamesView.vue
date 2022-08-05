@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import BinExpression from '@/components/BinExpression.vue';
+import HexAndOctal from '@/components/HexAndOctal.vue';
 import { def } from '@vue/shared';
 </script>
 
@@ -25,8 +26,10 @@ export default {
     <div id="bin">
       <BinExpression v-for="ix in 6" :key="ix" :id="'bin_'+ix" />
     </div>
-    <h3>Octal</h3>
-    <h3>Hexadecimal</h3>
+    <h3>Hexadecimal and Octal</h3>
+    <div id="octal">
+      <HexAndOctal v-for="ix in 6" :key="ix" :id="'oct_'+ix" />
+    </div>
   </div>
 </template>
 
