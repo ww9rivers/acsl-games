@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import BinExpression from '@/components/BinExpression.vue';
+import { def } from '@vue/shared';
 </script>
+
 <script lang="ts">
 export default {
   methods: {
-    add_game () {
-      window.alert("To add an item");
+    reset_game () {
+      window.alert("To restart the game.");
     }
   }
 }
@@ -15,13 +17,13 @@ export default {
   <div class="games">
     <h1>ACSL Games</h1>
     <p>
-      ACSL curriculum relavent games.
+      ACSL curriculum relevant games.
     </p>
     <h2>Number System</h2>
     <h3>Binary</h3>
+    <button style="font-size:1.5rem;" @click="reset_game" data-title="Click to restart">🔄</button>
     <div id="bin">
-      <BinExpression />
-      <button style="font-size:1.5rem;" @click="add_game" data-title="Click to add new item">»</button>
+      <BinExpression v-for="ix in 6" :key="ix" :id="'bin_'+ix" />
     </div>
     <h3>Octal</h3>
     <h3>Hexadecimal</h3>
