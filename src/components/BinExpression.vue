@@ -20,34 +20,43 @@ export default {
     return x;
   },
   methods: {
-    eval_result () {
+    eval_answer () {
       let input = this.result.trim();
       if (input == '') return;
       let op1 = parseInt(this.opd1,2), op2 = parseInt(this.opd2,2);
       let res = (this.opr == '+') ? op1 + op2 : op1 - op2;
       this.correct = (res == parseInt(input,2));
       this.disabled = true;
+    },
+    on_focus () {
+      this.$refs.answerInput.focus();
     }
   }
 }
 </script>
 
 <template>
-  <table class="item">
+  <table class="item" @click="on_focus">
     <tr><td></td><td><span class="operand">{{ opd1 }}</span></td></tr>
     <tr><td>{{ opr }}</td><td><span class="operand">{{ opd2 }}</span></td></tr>
     <tr>
       <td>
         <button style="font-size:1.5rem;" data-title="Click to submit answer"
           :disabled="disabled"
-          @click="eval_result">=</button>
+          @focus="on_focus"
+          @click="eval_answer">=</button>
       </td>
       <td style="border-top: 2px solid black">
-        <input v-model="result" placeholder="Answer" class="item"
+        <input v-model="result" placeholder="Answer" class="item" ref="answerInput"
+          v-on:keyup.enter="eval_answer"
           :disabled="disabled"
           :style="{ 'width': (Math.max(opd1.length, opd2.length)+3) + 'rem' }" />
       </td>
-      <td><span style="color:green" v-if="correct">✔</span><span style="color:red" v-if="correct===false">✘</span></td>
+      <td>
+        <span style="color:green" v-if="correct">✔</span>
+        <span style="color:red" v-else-if="correct===false">✘</span>
+        <span style="color:rgba(0,0,0,0)" v-else>✔</span>
+      </td>
     </tr>
   </table>
 </template>
@@ -62,6 +71,7 @@ table.item {
   border: 0;
   display: inline-table;
   margin-left: 2rem;
+  margin-bottom: 12pt;
 }
 table.item > tr {
   line-height: 1;
