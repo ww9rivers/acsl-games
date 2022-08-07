@@ -27,6 +27,7 @@ export default {
     handle_input () {
       const input = this.$refs.answerInput;
       const pos = input.selectionStart-1;
+      if (pos<0) pos = 0;
       input.setSelectionRange(pos, pos);
     },
     on_focus () {

@@ -2,7 +2,7 @@
   <div class="about">
     <h1>About ACSL Games</h1>
     <p>
-      The <a href="http://acsl.org">American Computer Science League</a> (ACSL) is an organization that
+      The <a target="_blank" href="http://acsl.org">American Computer Science League</a> (ACSL) is an organization that
       organizes competitions for K-12 students.
     </p>
     <p>

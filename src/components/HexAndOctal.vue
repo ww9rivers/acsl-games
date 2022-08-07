@@ -1,25 +1,34 @@
 <script lang="ts">
 export default {
 	data () {
-		let base0: number = (Math.random()<0.5)?8:16;
 		return {
-			base1: base0,
-			base2: (base0==8)?16:8,
-			number: Math.ceil(Math.random()*5000).toString(base0),
+			base1: 0,
+			base2: 0,
+			number: '',
 			correct: 2,
 			disabled: false,
 			result: ""
-		}
+		};
 	},
+	created() { this.reset(); },
 	methods: {
 		eval_answer () {
 			let input = this.result.trim();
 			if (input == '') return;
-      			this.correct = (parseInt(this.number,this.base1) == parseInt(input,this.base2))?1:0;
 			this.disabled = true;
+			this.correct = (parseInt(this.number,this.base1) == parseInt(input,this.base2))?1:0;
+			this.$emit('submit', this.correct);
 		},
 		on_focus () {
 			this.$refs.answerInput.focus();
+		},
+		reset () {
+			this.base1 = (Math.random()<0.5)?8:16;
+			this.base2 = (this.base1==8)?16:8;
+			this.number = Math.ceil(Math.random()*5000).toString(this.base1);
+			this.correct = 2;
+			this.disabled = false;
+			this.result = "";
 		}
 	}
 }
@@ -49,6 +58,7 @@ input.item {
 	text-align: right;
 }
 .item > sub {
-	color: lightgray;
+	color: gray;
+	font-size: 1rem;
 }
 </style>
