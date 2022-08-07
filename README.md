@@ -1,4 +1,4 @@
-# ACSL
+# ACSL Games
 
 Games for [ACSL](http://acsl.org/) stuff.
 
