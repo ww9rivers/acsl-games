@@ -4,32 +4,46 @@ function random_bin () {
 }
 export default {
   data() {
-    const x = {
-      opd1: random_bin(),
-      opd2: random_bin(),
-      opr: (Math.random()<0.5)?"+":"-",
+    return {
+      opd1: '',
+      opd2: '',
+      opr: '',
       result: "",
       disabled: false,
       correct: undefined
     };
-    if (x.opr == '-' && parseInt(x.opd1) < parseInt(x.opd2)) {
-      let tmp = x.opd2;
-      x.opd2 = x.opd1;
-      x.opd1 = tmp;
-    }
-    return x;
   },
+  created() { this.reset(); },
   methods: {
     eval_answer () {
       let input = this.result.trim();
       if (input == '') return;
       let op1 = parseInt(this.opd1,2), op2 = parseInt(this.opd2,2);
       let res = (this.opr == '+') ? op1 + op2 : op1 - op2;
-      this.correct = (res == parseInt(input,2));
       this.disabled = true;
+      this.correct = (res == parseInt(input,2));
+			this.$emit('submit', this.correct);
+    },
+    handle_input () {
+      const input = this.$refs.answerInput;
+      const pos = input.selectionStart-1;
+      input.setSelectionRange(pos, pos);
     },
     on_focus () {
       this.$refs.answerInput.focus();
+    },
+    reset () {
+      this.opd1 = random_bin();
+      this.opd2 = random_bin();
+      this.opr = (Math.random()<0.5)?"+":"-";
+      this.result = "";
+      this.disabled = false;
+      this.correct = undefined;
+      if (this.opr == '-' && parseInt(this.opd1) < parseInt(this.opd2)) {
+        let tmp = this.opd2;
+        this.opd2 = this.opd1;
+        this.opd1 = tmp;
+      }
     }
   }
 }
@@ -49,6 +63,7 @@ export default {
       <td style="border-top: 2px solid black">
         <input v-model="result" placeholder="Answer" class="item" ref="answerInput"
           v-on:keyup.enter="eval_answer"
+          @input="handle_input"
           :disabled="disabled"
           :style="{ 'width': (Math.max(opd1.length, opd2.length)+3) + 'rem' }" />
       </td>
